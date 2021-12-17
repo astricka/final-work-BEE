@@ -1,8 +1,8 @@
 const userDb = require('../schemas/userSchema');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     create: (req, res) => {
-
         if (!req.body){
             res.status(400).send({ msg: "Cannot be empty"});
             return;
