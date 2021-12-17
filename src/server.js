@@ -14,13 +14,13 @@ app.use(express.json());
 
 connectDB();
 
-const testRoute = require('./API/routes');
+const userRoutes = require('./API/routes');
 
 app.get('/', (req, res) => {
    res.send('Hello world');
 });
 
-app.use('/test', testRoute);
+app.use('/', userRoutes);
 
 app.listen(port, () => console.log(`Server running on ${port}`));
 
