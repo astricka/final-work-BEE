@@ -1,5 +1,4 @@
 const userDb = require('../schemas/userSchema');
-const bcrypt = require('bcrypt');
 
 module.exports = {
     create: (req, res) => {
@@ -21,7 +20,7 @@ module.exports = {
         }).catch(e => {
             console.log(e);
             console.log('Error creating user');
-            res.send({message: 'Error creating user'});
+            res.send({error: 'Error creating user'});
         });
     },
     find: (req, res) => {
@@ -45,7 +44,7 @@ module.exports = {
                     res.send(user);
                 })
                 .catch(err => {
-                    res.status(500).send({err, message: 'Error on on finding users '});
+                    res.status(500).send({err, message: 'Error on on finding users'});
                 });
         }
     },
@@ -57,12 +56,12 @@ module.exports = {
         }
 
         const id = req.params.id;
-        userDb.findOneAndUpdate(id, req.body)
+        userDb.findByIdAndUpdate(id, req.body)
             .then(data => {
                 if (!data) {
                     res.status(400).send({message: 'Cannot update user'});
                 } else {
-                    res.send(data);
+                    res.send({data, message: 'Success'});
                 }
             })
             .catch(error => {
