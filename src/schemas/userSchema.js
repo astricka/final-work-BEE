@@ -38,8 +38,10 @@ schema.pre('findOneAndUpdate', async function (next) {
         this._update.password = hashedPassword;
         next();
     } catch (e) {
+        console.log(e);
         next(e);
     }
 });
+
 
 module.exports = mongoose.model('usersDB', schema);

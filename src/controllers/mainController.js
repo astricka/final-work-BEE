@@ -1,4 +1,5 @@
 const userDb = require('../schemas/userSchema');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     create: (req, res) => {
@@ -54,13 +55,14 @@ module.exports = {
                 .status(400)
                 .send({message: 'Data cannot be empty'});
         }
-
         const id = req.params.id;
+        userDb.password = req.body.newPassword;
         userDb.findByIdAndUpdate(id, req.body)
             .then(data => {
                 if (!data) {
                     res.status(400).send({message: 'Cannot update user'});
                 } else {
+                    console.log(req.body);
                     res.send({data, message: 'Success'});
                 }
             })
@@ -71,7 +73,6 @@ module.exports = {
     },
     delete: (req, res) => {
         const id = req.params.id;
-
         userDb.findByIdAndDelete(id)
             .then(data => {
                 if (!data) {
