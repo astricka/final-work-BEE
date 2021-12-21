@@ -1,5 +1,4 @@
 const userDb = require('../schemas/userSchema');
-const bcrypt = require('bcrypt');
 
 module.exports = {
     create: (req, res) => {
@@ -55,8 +54,10 @@ module.exports = {
                 .status(400)
                 .send({message: 'Data cannot be empty'});
         }
+
         const id = req.params.id;
         userDb.password = req.body.newPassword;
+        console.log(req.body);
         userDb.findByIdAndUpdate(id, req.body)
             .then(data => {
                 if (!data) {

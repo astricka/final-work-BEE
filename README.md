@@ -1,2 +1,4 @@
 # final-work-BEE
-# hashed passwords
+
+# to run project:
+npm install
